@@ -5,6 +5,7 @@
 \usepackage{enumerate}
 \usepackage{bm}
 \usepackage{graphicx}
+\usepackage{ulem} % 提供 \sout 命令（删除线）
 \usepackage[dvipsnames]{xcolor} % 提供更多颜色
 \usepackage[colorlinks=true, % 启用彩色链接
 linkcolor=black, % 内部链接颜色
@@ -3214,5 +3215,934 @@ C_4 &= \neg p \lor \neg q.
 \end{enumerate}
 
 得到空子句，说明原公式存在矛盾。故该复合命题\textbf{不可满足}。
+
+\newpage
+\section*{第1章补充：谓词逻辑习题}
+
+\subsection*{嵌套量词 (Section 1.5 补充)}
+
+\subsubsection*{习题 1.5-12}
+\textbf{题目：} 令 $I(x)$ 表示 ``$x$ has an Internet connection''，$C(x,y)$ 表示 ``$x$ and $y$ have chatted over the Internet''，论域为班上所有学生。用量词表达下列语句。
+\begin{enumerate}[a)]
+    \item Jerry does not have an Internet connection.
+    \item[(c)] Jan and Sharon have never chatted over the Internet.
+    \item[(m)] There is a student in your class who has chatted with everyone in your class over the Internet.
+    \item[(n)] There are at least two students in your class who have not chatted with the same person in your class.
+\end{enumerate}
+
+\textbf{解答：}
+\begin{center}
+\begin{tabular}{c|l|l}
+\hline
+题号 & 符号化表达 & 说明 \\
+\hline
+(a) & $\neg I(\text{Jerry})$ & Jerry无网络连接 \\
+(c) & $\neg C(\text{Jan},\text{Sharon})$ & Jan与Sharon从未网聊 \\
+(m) & $\exists x\,\forall y\, C(x,y)$ & 存在一人与所有人都聊过 \\
+(n) & $\exists x\exists y\,\bigl(x\neq y \land \neg\exists z(C(x,z)\land C(y,z))\bigr)$ & 存在两人没有共同聊天对象 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{1.5-12(n) 的等价形式：}
+\[ \exists x\exists y\,\Bigl(x\neq y \land \forall z\bigl(\neg C(x,z)\lor \neg C(y,z)\bigr)\Bigr). \]
+
+\textbf{常见错误分析：}
+\begin{center}
+\begin{tabular}{l|l|l}
+\hline
+错误类型 & 错误写法 & 问题说明 \\
+\hline
+错法1 & $\exists x\exists y\exists z\,\bigl(x\neq y \land \neg C(x,z)\land \neg C(y,z)\bigr)$ & 只说明存在某个 $z$ 两人都没聊过，非``无共同对象'' \\
+错法2 & $\exists x\exists y\,\neg\exists z\bigl(C(x,z)\land C(y,z)\bigr)$ & 缺少 $x\neq y$，可能取到 $x=y$ \\
+错法3 & $\exists x\exists y\,\bigl(x\neq y \land \forall z(\neg C(x,z)\land \neg C(y,z))\bigr)$ & 条件过强，要求两人\textbf{都没和任何人}聊天 \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+\subsection*{推理规则与证明 (Section 1.6 补充)}
+
+\subsubsection*{习题 1.6-14}
+\textbf{题目：} 对下列每个论证，说明每一步使用了哪些推理规则。
+\begin{enumerate}[a)]
+    \item ``Linda, a student in this class, owns a red convertible. Everyone who owns a red convertible has gotten at least one speeding ticket. Therefore, someone in this class has gotten a speeding ticket.''
+    \item ``Each of five roommates, Melissa, Aaron, Ralph, Veneesha, and Keeshawn, has taken a course in discrete mathematics. Every student who has taken a course in discrete mathematics can take a course in algorithms. Therefore, all five roommates can take a course in algorithms next year.''
+    \item ``All movies produced by John Sayles are wonderful. John Sayles produced a movie about coal miners. Therefore, there is a wonderful movie about coal miners.''
+    \item ``There is someone in this class who has been to France. Everyone who goes to France visits the Louvre. Therefore, someone in this class has visited the Louvre.''
+\end{enumerate}
+
+\textbf{解答（c 详细）：} 令 $s(x)$：``$x$ is produced by John Sayles''，$c(x)$：``$x$ is about coal miners''，$w(x)$：``$x$ is wonderful''。前提：
+\[ \forall x\bigl(s(x)\to w(x)\bigr),\qquad \exists x\bigl(s(x)\land c(x)\bigr). \]
+
+\begin{center}
+\begin{tabular}{c|l|l}
+\hline
+步 & 语句 & 理由 \\
+\hline
+1 & $\exists x(s(x)\land c(x))$ & 前提 \\
+2 & $s(y)\land c(y)$ & 1，存在实例化 (EI) \\
+3 & $s(y)$ & 2，化简 (Simp) \\
+4 & $c(y)$ & 2，化简 (Simp) \\
+5 & $\forall x(s(x)\to w(x))$ & 前提 \\
+6 & $s(y)\to w(y)$ & 5，全称实例化 (UI) \\
+7 & $w(y)$ & 3, 6，肯定前件式 (MP) \\
+8 & $c(y)\land w(y)$ & 4, 7，合取 (Conj) \\
+9 & $\exists x(c(x)\land w(x))$ & 8，存在泛化 (EG) \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{其余小题规则链：}
+\begin{center}
+\begin{tabular}{c|l}
+\hline
+题号 & 使用的推理规则序列 \\
+\hline
+(a) & UI, MP, Conj, EG \\
+(b) & UI, 假言三段论 (HS), 全称泛化 (UG) \\
+(d) & EI, Simp, UI, MP, Conj, EG \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{习题 1.6-16}
+\textbf{题目：} 判断下列论证是否正确。
+\begin{enumerate}[a)]
+    \item Everyone enrolled in the university has lived in a dormitory. Mia has never lived in a dormitory. Therefore, Mia is not enrolled in the university.
+    \item A convertible car is fun to drive. Isaac's car is not a convertible. Therefore, Isaac's car is not fun to drive.
+    \item Quincy likes all action movies. Quincy likes the movie Eight Men Out. Therefore, Eight Men Out is an action movie.
+    \item All lobstermen set at least a dozen traps. Hamilton is a lobsterman. Therefore, Hamilton sets at least a dozen traps.
+\end{enumerate}
+
+\textbf{解答（c 详细）：} 令 $A(x)$：``$x$ is an action movie''，$L(Q,x)$：``Quincy likes $x$''。前提：
+\[ \forall x\bigl(A(x)\to L(Q,x)\bigr),\qquad L(Q,e), \]
+其中 $e$ 表示 Eight Men Out。由全称实例化只能得到
+\[ A(e)\to L(Q,e). \]
+但已知 $L(Q,e)$ 为真，不能反推出 $A(e)$。这是\textbf{肯定后件谬误}（fallacy of affirming the conclusion），故论证\textbf{不正确}。
+
+\textbf{其余小题结论：}
+\begin{center}
+\begin{tabular}{c|c|l}
+\hline
+题号 & 结论 & 说明 \\
+\hline
+(a) & 正确 & 否定后件式 (Modus tollens) \\
+(b) & 不正确 & 否定前件谬误 \\
+(d) & 正确 & 肯定前件式 (Modus ponens) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{习题 1.6-28}
+\textbf{题目：} 证明
+\[ \forall x\bigl(P(x)\lor Q(x)\bigr),\quad \forall x\Bigl((\neg P(x)\land Q(x))\to R(x)\Bigr) \]
+蕴涵 $\forall x\bigl(\neg R(x)\to P(x)\bigr)$。
+
+\textbf{解答：} 对任意 $x$：
+\begin{align*}
+P(x)\lor Q(x) &\quad\text{（前提1，全称实例化）}\\
+(\neg P(x)\land Q(x))\to R(x) &\equiv P(x)\lor\neg Q(x)\lor R(x) \quad\text{（前提2，等价变换）}
+\end{align*}
+将两式用归结（resolution）：
+\[ \bigl(P(x)\lor Q(x)\bigr)\land\bigl(P(x)\lor\neg Q(x)\lor R(x)\bigr) \vdash P(x)\lor R(x). \]
+而 $P(x)\lor R(x)\equiv \neg R(x)\to P(x)$。由全称泛化 (UG) 得
+\[ \forall x\bigl(\neg R(x)\to P(x)\bigr). \]
+
+
+
+\newpage
+\section{第4章：数论与同余}
+
+\subsection*{整除与模运算 (Section 4.1)}
+
+\subsubsection*{习题 4.1-46}
+\textbf{题目：} 证明若 $n$ 为正奇数，则 $n^2\equiv 1\pmod 8$。
+
+\textbf{解答：} 设 $n=2k+1$（$k\in\mathbb{Z}$），则
+\[ n^2=(2k+1)^2=4k^2+4k+1=4k(k+1)+1. \]
+因为 $k$ 与 $k+1$ 中必有一个偶数，故 $k(k+1)$ 为偶数，从而 $4k(k+1)$ 是 $8$ 的倍数。因此
+\[ n^2\equiv 1\pmod 8. \]
+
+\subsubsection*{习题 4.1-48}
+\textbf{题目：} 证明 $\mathbb{Z}_m$ 关于模 $m$ 加法（$m\ge 2$）满足封闭性、结合律、交换律，$0$ 是加法单位元，且每个非零元 $a$ 的加法逆元为 $m-a$。
+
+\textbf{解答：} 记
+\[ \mathbb{Z}_m=\{0,1,\dots,m-1\},\qquad a+_m b=(a+b)\bmod m. \]
+对任意 $a,b,c\in\mathbb{Z}_m$：
+\begin{itemize}
+    \item \textbf{封闭性：} $(a+b)\bmod m$ 的余数仍在 $\mathbb{Z}_m$ 中。
+    \item \textbf{结合律：}
+    \begin{align*}
+    (a+_m b)+_m c &=(((a+b)\bmod m)+c)\bmod m=(a+b+c)\bmod m,\\
+    a+_m(b+_m c) &=(a+((b+c)\bmod m))\bmod m=(a+b+c)\bmod m.
+    \end{align*}
+    \item \textbf{交换律：} $a+_m b=(a+b)\bmod m=(b+a)\bmod m=b+_m a$。
+    \item \textbf{单位元：} $a+_m 0=(a+0)\bmod m=a$。
+    \item \textbf{逆元：} $a=0$ 时 $0+_m 0=0$；$a\neq 0$ 时，$m-a\in\mathbb{Z}_m$ 且
+    \[ a+_m(m-a)=(a+m-a)\bmod m=m\bmod m=0. \]
+\end{itemize}
+
+
+
+\subsection*{整数表示与算法 (Section 4.2)}
+
+\subsubsection*{习题 4.2-18}
+\textbf{题目：} 利用二进制作为中间步骤，将十六进制展开转换为八进制展开。
+
+\textbf{解答：} 转换步骤如下：
+\begin{center}
+\begin{tabular}{l}
+\hline
+1. 每个十六进制位换成对应的 4 位二进制串。\\
+2. 从右向左每 3 位二进制分一组；最左边不足 3 位补前导 0。\\
+3. 每个 3 位二进制组换成一个八进制位。\\
+4. 删除最终结果中不必要的前导 0。\\
+\hline
+\end{tabular}
+\end{center}
+
+\[ \text{hex}\xrightarrow{\text{每位变 4 bits}}\text{binary}\xrightarrow{\text{每 3 bits 分组}}\text{octal}. \]
+
+\textbf{示例：}
+\[ (\text{A3F})_{16}=(1010\,0011\,1111)_2=(101\,000\,111\,111)_2=(5077)_8. \]
+
+
+
+\subsection*{素数与最大公约数 (Section 4.3)}
+
+\subsubsection*{习题 4.3-10}
+\textbf{题目：} 证明若 $2^m+1$ 为奇素数，则 $m=2^n$ 对某个非负整数 $n$ 成立。
+
+\textbf{解答：} 反证。若 $m$ 不是 $2$ 的幂，则 $m$ 有奇因子 $t>1$，写成
+\[ m=kt,\qquad t\text{ 为奇数}. \]
+利用多项式恒等式（$t$ 为奇数）：
+\[ x^m+1=(x^k+1)\bigl(x^{k(t-1)}-x^{k(t-2)}+\cdots-x^k+1\bigr). \]
+取 $x=2$，得
+\[ 2^m+1=(2^k+1)\bigl(2^{k(t-1)}-2^{k(t-2)}+\cdots-2^k+1\bigr). \]
+右边给出非平凡因子分解，与 $2^m+1$ 是素数矛盾。因此 $m$ 没有奇因子，只能是 $2$ 的幂。
+
+\subsubsection*{Eratosthenes 筛法}
+
+\textbf{题目：} 写出 Eratosthenes 筛法的伪代码。
+
+\textbf{伪代码：}
+\begin{center}
+\begin{tabular}{l}
+\hline
+\textbf{procedure} sieve($n$)\\
+\quad \textbf{for} $i:=2$ \textbf{to} $n$\\
+\quad\quad isPrime[$i$] := true\\
+\quad \textbf{for} $p:=2$ \textbf{to} $\lfloor\sqrt{n}\rfloor$\\
+\quad\quad \textbf{if} isPrime[$p$] \textbf{then}\\
+\quad\quad\quad multiple := $2p$\\
+\quad\quad\quad \textbf{while} multiple $\le n$\\
+\quad\quad\quad\quad isPrime[$multiple$] := false\\
+\quad\quad\quad\quad multiple := multiple $+\,p$\\
+\quad \textbf{return} all $i$ with isPrime[$i$]\\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{示例（筛出 $2$ 到 $30$ 中的素数）：}
+
+\begin{center}
+\begin{tabular}{c|cccccccccccccccccccccccccccccc}
+\hline
+$p=2$ & 2 & 3 & \sout{4} & 5 & \sout{6} & 7 & \sout{8} & 9 & \sout{10} & 11 & \sout{12} & 13 & \sout{14} & 15 & \sout{16} & 17 & \sout{18} & 19 & \sout{20} & 21 & \sout{22} & 23 & \sout{24} & 25 & \sout{26} & 27 & \sout{28} & 29 & \sout{30} \\
+$p=3$ & 2 & 3 &  & 5 &  & 7 &  & \sout{9} &  & 11 &  & 13 &  & \sout{15} &  & 17 &  & 19 &  & \sout{21} &  & 23 &  & 25 &  & \sout{27} &  & 29 &  \\
+$p=5$ & 2 & 3 &  & 5 &  & 7 &  &  &  & 11 &  & 13 &  &  &  & 17 &  & 19 &  &  &  & 23 &  & \sout{25} &  &  &  & 29 &  \\
+\hline
+\multicolumn{30}{l}{剩余未被筛掉的数：$2,3,5,7,11,13,17,19,23,29$。} \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 直接从 $p$ 开始删倍数，把质数 $p$ 自己删掉。
+    \item 没有判断当前 $p$ 仍为质数，导致合数也被当作筛选因子。
+    \item 内层循环没有推进倍数，或筛除范围不足。
+    \item 凭空使用一个质数列表来筛（应仅依赖 isPrime 数组）。
+\end{itemize}
+
+\textbf{关键写法：}
+\begin{itemize}
+    \item 外层循环上界：$i=2,3,\dots,\lfloor\sqrt{n}\rfloor$，再判断 $i$ 是否仍为质数。
+    \item 只筛质数的倍数：$2p,3p,4p,\dots$
+    \item 更优化的写法可以从 $p^2$ 开始删。
+\end{itemize}
+
+\newpage
+\subsection*{素数与最大公约数 (Section 4.3 续)}
+
+\subsubsection*{习题 4.3-32}
+\textbf{题目：} 用欧几里得算法求最大公约数。
+\begin{enumerate}
+    \item[(c)] $\gcd(123,277)$
+    \item[(f)] $\gcd(11111,111111)$
+\end{enumerate}
+
+\textbf{解答：}
+
+\textbf{(c)}
+\begin{align*}
+\gcd(123,277) &= \gcd(277\bmod 123,\,123) \\
+&= \gcd(31,\,123) \\
+&= \gcd(123\bmod 31,\,31) \\
+&= \gcd(30,\,31) \\
+&= \gcd(1,\,30) = \boxed{1}.
+\end{align*}
+
+\textbf{(f)} $\gcd(11111,111111)=\boxed{1}$。
+
+\subsubsection*{习题 4.3-40}
+\textbf{题目：} 用例17的方法，将下列每对整数的最大公约数表示为这两个整数的线性组合。
+\begin{enumerate}
+    \item[(e)] $101,203$
+    \item[(i)] $10001,13422$
+\end{enumerate}
+
+\textbf{解答：}
+
+\textbf{(i)} 先用欧几里得算法：
+\begin{align*}
+13422 &= 1\cdot 10001 + 3421,\\
+10001 &= 2\cdot 3421 + 3159,\\
+3421 &= 1\cdot 3159 + 262,\\
+3159 &= 12\cdot 262 + 15,\\
+262 &= 17\cdot 15 + 7,\\
+15 &= 2\cdot 7 + 1.
+\end{align*}
+故 $\gcd(10001,13422)=1$。
+
+从最后一个非零余数 $1$ 开始反代：
+\begin{align*}
+1 &= 15 - 2\cdot 7 \\
+&= 15 - 2(262 - 17\cdot 15) = 35\cdot 15 - 2\cdot 262 \\
+&= 35(3159 - 12\cdot 262) - 2\cdot 262 = 35\cdot 3159 - 422\cdot 262 \\
+&= 35\cdot 3159 - 422(3421 - 3159) = 457\cdot 3159 - 422\cdot 3421 \\
+&= 457(10001 - 2\cdot 3421) - 422\cdot 3421 = 457\cdot 10001 - 1336\cdot 3421 \\
+&= 457\cdot 10001 - 1336(13422 - 10001) \\
+&= \boxed{1793\cdot 10001 - 1336\cdot 13422}.
+\end{align*}
+
+\textbf{(e)} $\boxed{1 = -2\cdot 101 + 203}$。
+
+\subsubsection*{习题 4.3-52}
+\textbf{题目：} 证明或否定：对任意正整数 $n$，$p_1p_2\cdots p_n+1$ 都是素数，其中 $p_1,p_2,\dots,p_n$ 是前 $n$ 个最小素数。
+
+\textbf{解答：} 命题为\textbf{假}。反例：
+\[ 2\cdot 3\cdot 5\cdot 7\cdot 11\cdot 13 + 1 = 30031 = 59\cdot 509. \]
+因此前 $n$ 个最小素数的乘积加 $1$ 不一定是素数。
+
+
+
+\subsection*{求解同余方程 (Section 4.4)}
+
+\subsubsection*{习题 4.4-2 / 4.4-8}
+
+\textbf{4.4-2 题目：} 证明 $937$ 是 $13$ 模 $2436$ 的逆元。
+
+\textbf{解答：} 验证：
+\[ 13\cdot 937 - 1 = 12180 = 5\cdot 2436. \]
+故
+\[ 13\cdot 937 \equiv 1\pmod{2436}. \]
+
+\textbf{4.4-8 题目：} 证明若 $\gcd(a,m)>1$，则 $a$ 模 $m$ 的逆元不存在。
+
+\textbf{解答：} 反设 $a$ 有模 $m$ 逆元 $x$，则
+\[ ax \equiv 1\pmod m, \]
+即存在整数 $t$ 使
+\[ 1 = ax - tm. \]
+但 $d=\gcd(a,m)>1$ 同时整除 $a$ 与 $m$，故 $d\mid(ax-tm)$，即 $d\mid 1$，矛盾。因此逆元不存在。
+
+\subsubsection*{习题 4.4-20（中国剩余定理）}
+\textbf{题目：} 用中国剩余定理证明中的构造方法，求解同余方程组
+\[ x\equiv 2\pmod 3,\quad x\equiv 1\pmod 4,\quad x\equiv 3\pmod 5. \]
+
+\textbf{解答：} 模数两两互素，$m=3\cdot 4\cdot 5=60$。令
+\[ M_1=4\cdot 5=20,\quad M_2=3\cdot 5=15,\quad M_3=3\cdot 4=12. \]
+求逆元：
+\[ 20\cdot 2\equiv 1\pmod 3,\quad 15\cdot 3\equiv 1\pmod 4,\quad 12\cdot 3\equiv 1\pmod 5. \]
+按 CRT 构造：
+\[ x \equiv 2(20\cdot 2)+1(15\cdot 3)+3(12\cdot 3) \pmod{60}. \]
+\[ x \equiv 80+45+108 = 233 \equiv \boxed{53\pmod{60}}. \]
+
+\subsubsection*{习题 4.4-28}
+\textbf{题目：} 用中国剩余定理证明：若 $0\le a<m=m_1m_2\cdots m_n$，其中正整数 $m_1,m_2,\dots,m_n$ 两两互素，则整数 $a$ 可被 $n$ 元组
+\[ (a\bmod m_1,\,a\bmod m_2,\,\dots,\,a\bmod m_n) \]
+唯一表示。
+
+\textbf{解答：}
+\begin{itemize}
+    \item \textbf{存在性：} 给定 $a$ 后，直接计算每个余数即可得到该 $n$ 元组。
+    \item \textbf{唯一性：} 若 $a,b$ 给出相同的 $n$ 元组，则
+    \[ a\equiv b\pmod{m_i},\qquad i=1,\dots,n. \]
+    由于 $m_1,\dots,m_n$ 两两互素，CRT 给出
+    \[ a\equiv b\pmod m. \]
+    又 $a,b\in\{0,1,\dots,m-1\}$，故只能有 $a=b$。
+\end{itemize}
+
+\subsubsection*{习题 4.4-38}
+\textbf{题目：}
+\begin{enumerate}[a)]
+    \item 用费马小定理计算 $3^{302}\bmod 5$、$3^{302}\bmod 7$、$3^{302}\bmod 11$。
+    \item 用(a)的结果和中国剩余定理求 $3^{302}\bmod 385$。（注意 $385=5\cdot 7\cdot 11$）
+\end{enumerate}
+
+\textbf{解答：}
+
+\textbf{(a)} 费马小定理：若 $p$ 为素数且 $p\nmid a$，则 $a^{p-1}\equiv 1\pmod p$。因为 $5,7,11$ 均为素数且都不整除 $3$，所以
+\begin{align*}
+3^{302} &= 3^{75\cdot 4}\cdot 3^2 = (3^4)^{75}\cdot 3^2 \equiv 3^2 \equiv \boxed{4\pmod 5},\\
+3^{302} &= 3^{50\cdot 6}\cdot 3^2 = (3^6)^{50}\cdot 3^2 \equiv 3^2 \equiv \boxed{2\pmod 7},\\
+3^{302} &= 3^{30\cdot 10}\cdot 3^2 = (3^{10})^{30}\cdot 3^2 \equiv 3^2 \equiv \boxed{9\pmod{11}}.
+\end{align*}
+
+\textbf{(b)} 令 $m=385$，
+\[ M_1=77,\quad M_2=55,\quad M_3=35. \]
+取逆元：
+\[ 77\cdot 3\equiv 1\pmod 5,\quad 55\cdot 6\equiv 1\pmod 7,\quad 35\cdot 6\equiv 1\pmod{11}. \]
+所以
+\[ 3^{302} \equiv 4(77\cdot 3)+2(55\cdot 6)+9(35\cdot 6) \pmod{385}. \]
+\[ 3^{302} \equiv 924+660+1890 = 3474 \equiv \boxed{9\pmod{385}}. \]
+
+
+
+\subsection*{同余应用 (Section 4.5)}
+
+\subsubsection*{习题 4.5-34（ISSN 校验码）}
+\textbf{题目：} ISSN（国际标准期刊编号）的校验码是否能检测所有单个数字错误？用证明或反例说明。
+
+ISSN 由两个四位数字块组成，第二块的最后一位是校验码，由同余式
+\[ d_8 \equiv 3d_1+4d_2+5d_3+6d_4+7d_5+8d_6+9d_7 \pmod{11} \]
+确定。当 $d_8\equiv 10\pmod{11}$ 时，用字母 X 表示。
+
+\textbf{解答：} 能检测所有单个数字错误。理由如下：
+
+ISSN 校验关系为模 $11$ 同余，权重为 $3,4,5,6,7,8,9$（对应 $d_1$ 到 $d_7$）。若某一位从 $x$ 错成 $y$（$x\neq y$），则校验式改变
+\[ w(y-x)\pmod{11}. \]
+这里权重 $w\in\{3,4,5,6,7,8,9\}$ 均与 $11$ 互素，且 $y-x$ 是 $-9$ 到 $9$ 之间的非零整数，不可能被 $11$ 整除。因此改变量不可能为 $0\pmod{11}$，校验关系会被破坏，故能检测所有单个数字错误。
+
+
+
+\newpage
+\section{第8章：高级计数技巧}
+
+\subsection*{线性齐次递推 (Section 8.2)}
+
+\subsubsection*{方法总结}
+
+\textbf{二阶线性齐次递推：}
+\[ a_n = c_1 a_{n-1} + c_2 a_{n-2}. \]
+设 $a_n=r^n$，代入得\textbf{特征方程}：
+\[ r^2 = c_1 r + c_2. \]
+
+\begin{center}
+\begin{tabular}{l|l}
+\hline
+根的情况 & 通解形式 \\
+\hline
+两个不同根 $r_1,r_2$ & $a_n = \alpha r_1^n + \beta r_2^n$ \\
+二重根 $r$ & $a_n = \alpha r^n + \beta n r^n = (\alpha+\beta n)r^n$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{高阶情形：} 若特征方程的根 $r$ 的重数为 $m$，则对应解的基底包含
+\[ r^n,\quad nr^n,\quad n^2r^n,\quad\ldots,\quad n^{m-1}r^n. \]
+例如三重根 $r$ 时：
+\[ a_n = (\alpha+\beta n+\gamma n^2)r^n. \]
+
+\subsubsection*{习题 8.2-4}
+\textbf{题目：} 求解下列递推关系及初值。
+\begin{enumerate}
+    \item[(f)] $a_n=-6a_{n-1}-9a_{n-2}$，$n\ge 2$，$a_0=3$，$a_1=-3$。
+    \item[(g)] $a_{n+2}=-4a_{n+1}+5a_n$，$n\ge 0$，$a_0=2$，$a_1=8$。
+\end{enumerate}
+
+\textbf{解答：}
+
+\textbf{(f)} 特征方程：
+\[ r^2+6r+9=(r+3)^2=0. \]
+重根 $r=-3$，故设
+\[ a_n=\alpha(-3)^n+\beta n(-3)^n. \]
+代入 $a_0=3$ 和 $a_1=-3$：
+\[ \begin{cases}
+\alpha = 3,\\
+(\alpha+\beta)(-3)=-3.
+\end{cases} \]
+解得 $\alpha=3$，$\beta=-2$。
+\[ \boxed{a_n=3(-3)^n-2n(-3)^n=(3-2n)(-3)^n.} \]
+
+\textbf{(g)} $\boxed{a_n=3-(-5)^n}$。
+
+\subsubsection*{习题 8.2-18}
+\textbf{题目：} 求解
+\[ a_n=6a_{n-1}-12a_{n-2}+8a_{n-3},\qquad a_0=-5,\ a_1=4,\ a_2=88. \]
+
+\textbf{解答：} 特征方程：
+\[ r^3-6r^2+12r-8=(r-2)^3=0. \]
+$2$ 是三重根，故设
+\[ a_n=(\alpha+\beta n+\gamma n^2)2^n. \]
+代入初值：
+\[ \alpha=-5,\quad \beta+\gamma=7,\quad \beta+2\gamma=\frac{27}{2}. \]
+解得
+\[ \beta=\frac{1}{2},\qquad \gamma=\frac{13}{2}. \]
+\[ \boxed{a_n=\left(-5+\frac{n}{2}+\frac{13n^2}{2}\right)2^n.} \]
+
+\subsubsection*{Lemma 1（重根通解的归纳证明）}
+
+\textbf{题目：} 补全 Lemma 1 证明中的归纳步骤。设线性齐次递推
+\[ a_n+b_1a_{n-1}+\cdots+b_{m-1}a_{n-m+1}+b_ma_{n-m}=0 \]
+的特征方程为 $(x-d)^m=0$。证明对每个 $0\le j<m$，$n^jd^n$ 都是该递推式的解。
+
+\textbf{解答思路：}
+
+Lemma 1 要证明：若特征方程为 $(x-d)^m=0$（即 $d$ 是 $m$ 重根），则下列序列都是递推式的解：
+\[ d^n,\quad nd^n,\quad n^2d^n,\quad\ldots,\quad n^{m-1}d^n. \]
+
+记 $b_0=1$。要证 $a_n=n^jd^n$ 是解，代入递推式左边得
+\[ \sum_{i=0}^{m}b_i(n-i)^jd^{n-i}=0. \]
+令
+\[ P_j(x)=\sum_{i=0}^{m}b_i(n-i)^jx^{n-i}, \]
+最终只需证明 $P_j(d)=0$。
+
+\textbf{更强的命题 $H_j$：}
+\[ P_j(x)=\sum_{i=0}^{m}b_i(n-i)^jx^{n-i}=(x-d)^{m-j}q_j(x). \]
+当 $j<m$ 时，右边含有因子 $(x-d)$，故代入 $x=d$ 即得 $P_j(d)=0$。
+
+只要 $H_j$ 成立，就有 $a_n=n^jd^n$ 满足递推式。通过归纳法可证 $H_j$ 对所有 $0\le j<m$ 成立。
+
+\newpage
+\subsection*{Lemma 1 归纳证明（详细步骤）}
+
+\textbf{基础步（$j=0$）：}
+\[ P_0(x)=\sum_{i=0}^{m}b_i(n-i)^0x^{n-i}=\sum_{i=0}^{m}b_ix^{n-i}. \]
+因为特征方程为
+\[ x^m+b_1x^{m-1}+\cdots+b_m=(x-d)^m, \]
+所以
+\begin{align*}
+P_0(x) &= \sum_{i=0}^{m}b_ix^{n-i} \\
+&= x^{n-m}\bigl(x^m+b_1x^{m-1}+\cdots+b_m\bigr) \\
+&= x^{n-m}(x-d)^m.
+\end{align*}
+因此 $H_0$ 成立，其中 $q_0(x)=x^{n-m}$。代入 $x=d$ 得 $P_0(d)=0$，即 $n^0d^n=d^n$ 是原递推式的解。
+
+\textbf{归纳步：} 归纳假设 $H_{j-1}$ 成立：
+\[ P_{j-1}(x)=\sum_{i=0}^{m}b_i(n-i)^{j-1}x^{n-i}=(x-d)^{m-j+1}q_{j-1}(x). \]
+要证
+\[ P_j(x)=\sum_{i=0}^{m}b_i(n-i)^jx^{n-i}=(x-d)^{m-j}q_j(x). \]
+
+先看左边求和式。因为 $x\frac{d}{dx}x^{n-i}=(n-i)x^{n-i}$，所以
+\begin{align*}
+x\frac{d}{dx}P_{j-1}(x) &= x\frac{d}{dx}\sum_{i=0}^{m}b_i(n-i)^{j-1}x^{n-i} \\
+&= \sum_{i=0}^{m}b_i(n-i)^{j-1}(n-i)x^{n-i} \\
+&= \sum_{i=0}^{m}b_i(n-i)^jx^{n-i}=P_j(x).
+\end{align*}
+
+由归纳假设，
+\begin{align*}
+P_j(x) &= x\frac{d}{dx}P_{j-1}(x) \\
+&= x\frac{d}{dx}\Bigl((x-d)^{m-j+1}q_{j-1}(x)\Bigr) \\
+&= x\Bigl((m-j+1)(x-d)^{m-j}q_{j-1}(x)+(x-d)^{m-j+1}q_{j-1}'(x)\Bigr) \\
+&= (x-d)^{m-j}x\Bigl((m-j+1)q_{j-1}(x)+(x-d)q_{j-1}'(x)\Bigr).
+\end{align*}
+
+令
+\[ q_j(x)=x\Bigl((m-j+1)q_{j-1}(x)+(x-d)q_{j-1}'(x)\Bigr), \]
+就得到
+\[ P_j(x)=\sum_{i=0}^{m}b_i(n-i)^jx^{n-i}=(x-d)^{m-j}q_j(x). \]
+归纳命题成立。当 $j<m$ 时 $P_j(d)=0$，所以 $n^jd^n$ 是解。
+
+
+
+\newpage
+\subsection*{线性非齐次递推 (Section 8.2 续)}
+
+\subsubsection*{习题 8.2-30}
+\textbf{题目：}
+\begin{enumerate}[a)]
+    \item 求递推关系 $a_n=-5a_{n-1}-6a_{n-2}+42\cdot 4^n$ 的所有解。
+    \item 求该递推关系满足 $a_1=56$ 和 $a_2=278$ 的解。
+\end{enumerate}
+
+\textbf{解答：}
+
+\textbf{(a)} 齐次部分：
+\[ r^2+5r+6=(r+2)(r+3)=0, \]
+故齐次解
+\[ a_n^{(h)}=\alpha(-2)^n+\beta(-3)^n. \]
+
+因为非齐次项是 $42\cdot 4^n$，且 $4$ 不是特征根，设特解
+\[ a_n^{(p)}=C\cdot 4^n. \]
+代入得
+\[ C4^n=-5C4^{n-1}-6C4^{n-2}+42\cdot 4^n. \]
+两边除以 $4^{n-2}$：
+\[ 16C=-20C-6C+42\cdot 16. \]
+解得 $C=16$。所以所有解为
+\[ \boxed{a_n=\alpha(-2)^n+\beta(-3)^n+16\cdot 4^n=\alpha(-2)^n+\beta(-3)^n+4^{n+2}.} \]
+
+\textbf{(b)} 由 (a) 已知
+\[ a_n=\alpha(-2)^n+\beta(-3)^n+16\cdot 4^n. \]
+代入 $a_1=56$：
+\[ -2\alpha-3\beta+64=56,\quad\text{即}\quad 2\alpha+3\beta=8. \]
+代入 $a_2=278$：
+\[ 4\alpha+9\beta+256=278,\quad\text{即}\quad 4\alpha+9\beta=22. \]
+解得 $\alpha=1,\beta=2$。所以
+\[ \boxed{a_n=(-2)^n+2(-3)^n+16\cdot 4^n.} \]
+
+\subsubsection*{补充题：立方和递推}
+\textbf{题目：} 求解
+\[ a_n=a_{n-1}+n^3,\qquad a_0=0. \]
+（此递推表示 $a_n=1^3+2^3+\cdots+n^3$）
+
+\textbf{解答：}
+
+\textbf{齐次部分：} 对应齐次递推 $a_n^{(h)}=a_{n-1}^{(h)}$。设 $a_n^{(h)}=r^n$，代入得
+\[ r^n=r^{n-1}\;\Rightarrow\;r=1. \]
+特征根为 $1$，故齐次解
+\[ a_n^{(h)}=K\cdot 1^n=K. \]
+
+\textbf{特解形式：} 非齐次项为 $n^3=n^3\cdot 1^n$，是``三次多项式乘 $1^n$''的形式。若 $1$ 不是齐次特征根，特解可设为
+\[ (An^3+Bn^2+Cn+D)\cdot 1^n. \]
+但这里 $1$ 已是齐次特征根，且重数为 $1$，会和齐次解重复，所以要再乘一个 $n$。因此特解设为
+\[ a_n^{(p)}=n(An^3+Bn^2+Cn+D)=An^4+Bn^3+Cn^2+Dn. \]
+
+\textbf{代入与求解：} 代入 $a_n=a_{n-1}+n^3$ 并比较 $n^3,n^2,n,1$ 的系数，解得
+\[ A=\frac{1}{4},\quad B=\frac{1}{2},\quad C=\frac{1}{4},\quad D=0. \]
+因此通解为
+\[ a_n=K+\frac{n^2(n+1)^2}{4}. \]
+代入 $a_0=0$ 得 $K=0$，故
+\[ \boxed{a_n=\frac{n^2(n+1)^2}{4}.} \]
+
+
+
+\newpage
+\subsection*{分治递推 (Section 8.3)}
+
+\subsubsection*{习题 8.3-22}
+\textbf{题目：} 设 $f(n)=2f(\sqrt{n})+\log n$ 对完全平方数 $n>1$ 成立，且 $f(2)=1$。
+\begin{enumerate}[a)]
+    \item 求 $f(16)$。
+    \item 求 $f(n)$ 的 Big-O 估计。（提示：令 $m=\log n$）
+\end{enumerate}
+
+\textbf{解答：}
+
+\textbf{(b)} 令
+\[ m=\log n,\qquad n=2^m,\qquad g(m)=f(2^m). \]
+递推变成
+\[ g(m)=f(2^m)=2f(\sqrt{2^m})+m=2f(2^{m/2})+m=2g(m/2)+m. \]
+用主定理（Master Theorem），$a=2,b=2,d=1$，属于 $a=b^d$ 情形，所以
+\[ g(m)=O(m\log m). \]
+换回 $m=\log n$：
+\[ \boxed{f(n)=O(\log n\log\log n).} \]
+
+\textbf{(a)} $f(16)=112$（由迭代计算可得）。
+
+\subsubsection*{主定理（Master Theorem）}
+
+对分治递推
+\[ T(n)=aT(n/b)+O(n^d), \]
+其中 $a\ge 1,b>1,d\ge 0$。使用前先把递推整理成上述标准形式（子问题个数 $a$，规模缩小因子 $b$，合并成本 $n^d$）。
+
+\begin{center}
+\begin{tabular}{l|l}
+\hline
+条件 & 复杂度 \\
+\hline
+$a<b^d$ & $T(n)=O(n^d)$ \\
+$a=b^d$ & $T(n)=O(n^d\log n)$ \\
+$a>b^d$ & $T(n)=O(n^{\log_b a})$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{习题 8.3-36}
+\textbf{题目：} 求解 $f(n)=8f(n/2)+n^2$，$f(1)=1$，其中 $n=2^k$。
+
+\textbf{解答：} 迭代两次：
+\[ f(n/2)=8f(n/4)+(n/2)^2, \]
+所以
+\[ f(n)=8^2f(n/4)+8(n/2)^2+n^2. \]
+再展开一次：
+\[ f(n)=8^3f(n/8)+8^2(n/4)^2+8(n/2)^2+n^2. \]
+展开到 $f(1)$：
+\[ f(n)=8^kf(1)+\sum_{j=0}^{k-1}8^j\left(\frac{n}{2^j}\right)^2. \]
+
+\subsubsection*{习题 8.3-37}
+\textbf{题目：} 若 $f$ 是增函数，对习题36中的函数给出 Big-O 估计。
+
+\textbf{解答：} 习题36的递推为 $f(n)=8f(n/2)+n^2$。直接用主定理，这里
+\[ a=8,\qquad b=2,\qquad d=2. \]
+因为
+\[ a=8>2^2=4=b^d, \]
+所以
+\[ \boxed{f(n)=O(n^{\log_2 8})=O(n^3).} \]
+
+
+
+\newpage
+\section{第8章续：生成函数 (Section 8.4)}
+
+\subsection*{生成函数基本概念}
+
+\textbf{基本想法：} 将数列 $a_0,a_1,a_2,\ldots$ 对应到形式幂级数
+\[ A(x)=\sum_{n\ge 0}a_nx^n. \]
+
+\textbf{解题时通常做三件事：}
+\begin{enumerate}
+    \item 根据题目限制写出生成函数；
+    \item 把生成函数做代数化简或展开；
+    \item 读取某个 $x^n$ 的系数。
+\end{enumerate}
+
+\textbf{常用公式：}
+\[ \frac{1}{1-x^r}=1+x^r+x^{2r}+x^{3r}+\cdots. \]
+如果面值为 $r$ 的硬币可以无限使用，就用这一项。
+
+\subsection*{习题 8.4-8}
+\textbf{题目：} 对下列每个生成函数，给出它所确定的数列的闭式公式。
+\begin{enumerate}[a)]
+    \item $(x^2+1)^3$
+    \item $(3x-1)^3$
+    \item[(c)] $1/(1-2x^2)$
+    \item[(d)] $x^2/(1-x)^3$
+    \item[(e)] $x-1+1/(1-3x)$
+    \item[(f)] $(1+x^3)/(1+x)^3$
+    \item[(g)] $x/(1+x+x^2)$
+    \item[(h)] $e^{3x^2}-1$
+\end{enumerate}
+
+\textbf{解答：}
+
+\textbf{(a)} 用二项式展开：
+\[ (1+x^2)^3=\sum_{k=0}^{3}\binom{3}{k}x^{2k}=1+3x^2+3x^4+x^6. \]
+因此
+\[ a_n=\begin{cases}
+\displaystyle\binom{3}{k}, & n=2k,\ k=0,1,2,3,\\[6pt]
+0, & \text{其他}.
+\end{cases} \]
+
+\textbf{(b)} 用二项式展开：
+\[ (3x-1)^3=-1+9x-27x^2+27x^3. \]
+因此
+\[ a_0=-1,\ a_1=9,\ a_2=-27,\ a_3=27,\quad a_n=0\ (n\ge 4). \]
+
+\newpage
+\subsection*{生成函数求数列闭式（Section 8.4 续）}
+
+\subsubsection*{习题 8.4-8 续}
+
+\textbf{(c)} $\displaystyle\frac{1}{1-2x^2}$
+
+用几何级数 $\displaystyle\frac{1}{1-y}=\sum_{k\ge 0}y^k$，令 $y=2x^2$：
+\[ \frac{1}{1-2x^2}=\sum_{k\ge 0}2^kx^{2k}. \]
+因此
+\[ a_n=\begin{cases}
+2^{n/2}, & n\text{ 为偶数},\\[4pt]
+0, & n\text{ 为奇数}.
+\end{cases} \]
+
+\textbf{(d)} $\displaystyle\frac{x^2}{(1-x)^3}$
+
+用公式
+\[ \frac{1}{(1-x)^3}=\sum_{k\ge 0}\binom{k+2}{2}x^k. \]
+所以
+\[ \frac{x^2}{(1-x)^3}=\sum_{k\ge 0}\binom{k+2}{2}x^{k+2}=\sum_{n\ge 2}\binom{n}{2}x^n. \]
+因此
+\[ a_n=\begin{cases}
+\displaystyle\binom{n}{2}, & n\ge 2,\\[6pt]
+0, & n=0,1.
+\end{cases} \]
+
+\textbf{(e)} $\displaystyle x-1+\frac{1}{1-3x}$
+
+用几何级数
+\[ \frac{1}{1-3x}=\sum_{n\ge 0}3^nx^n. \]
+所以
+\[ x-1+\frac{1}{1-3x}=x-1+\sum_{n\ge 0}3^nx^n. \]
+因此
+\[ a_0=0,\qquad a_1=4,\qquad a_n=3^n\ (n\ge 2). \]
+
+\textbf{(f)} $\displaystyle\frac{1+x^3}{(1+x)^3}$
+
+用
+\[ \frac{1}{(1+x)^3}=\frac{1}{(1-(-x))^3}=\sum_{n\ge 0}(-1)^n\binom{n+2}{2}x^n. \]
+所以
+\[ \frac{1+x^3}{(1+x)^3}=\sum_{n\ge 0}(-1)^n\binom{n+2}{2}x^n+\sum_{n\ge 3}(-1)^{n-3}\binom{n-1}{2}x^n. \]
+因此 $a_0=1,\ a_1=-3,\ a_2=6$，且
+\[ a_n=3n(-1)^n\quad (n\ge 3). \]
+
+\textbf{(g)} $\displaystyle\frac{x}{1+x+x^2}$
+
+先化成几何级数：
+\[ \frac{x}{1+x+x^2}=\frac{x(1-x)}{1-x^3}=(x-x^2)\sum_{k\ge 0}x^{3k}. \]
+因此
+\[ a_n=\begin{cases}
+1, & n\equiv 1\pmod 3,\\
+-1, & n\equiv 2\pmod 3,\\
+0, & n\equiv 0\pmod 3.
+\end{cases} \]
+
+\textbf{(h)} $e^{3x^2}-1$
+
+用指数函数的幂级数
+\[ e^y=\sum_{k\ge 0}\frac{y^k}{k!},\qquad y=3x^2. \]
+所以
+\[ e^{3x^2}-1=\sum_{k\ge 1}\frac{3^k}{k!}x^{2k}. \]
+因此
+\[ a_n=\begin{cases}
+\displaystyle\frac{3^{n/2}}{(n/2)!}, & n\ge 2\text{ 且 }n\text{ 为偶数},\\[8pt]
+0, & n=0\text{ 或 }n\text{ 为奇数}.
+\end{cases} \]
+
+\subsubsection*{习题 8.4-30}
+\textbf{题目：} 用生成函数求用 pennies（1分）、nickels（5分）、dimes（10分）、quarters（25分）凑出1美元（100分）的方案数，满足：
+\begin{enumerate}[a)]
+    \item pennies 不超过10枚；
+    \item pennies 不超过10枚且 nickels 不超过10枚；
+    \item 硬币总数不超过10枚。
+\end{enumerate}
+
+\textbf{解答：}
+
+若面值 $r$ 的硬币可无限使用，其生成函数为
+\[ 1+x^r+x^{2r}+\cdots=\frac{1}{1-x^r}. \]
+
+\textbf{(a)} pennies 最多10枚，其余三种不限：
+\[ (1+x+\cdots+x^{10})\cdot\frac{1}{1-x^5}\cdot\frac{1}{1-x^{10}}\cdot\frac{1}{1-x^{25}}. \]
+方案数是该生成函数中 $x^{100}$ 的系数，等于 $\boxed{79}$。
+
+\textbf{(b)} pennies 最多10枚，nickels 最多10枚：
+\[ (1+x+\cdots+x^{10})(1+x^5+x^{10}+\cdots+x^{50})\cdot\frac{1}{1-x^{10}}\cdot\frac{1}{1-x^{25}}. \]
+方案数是该生成函数中 $x^{100}$ 的系数，等于 $\boxed{58}$。
+
+\textbf{(c)} 限制的是硬币总数，所以用两个变量：$x$ 记录金额，$y$ 记录硬币枚数。生成函数为
+\[ \frac{1}{1-yx}\cdot\frac{1}{1-yx^5}\cdot\frac{1}{1-yx^{10}}\cdot\frac{1}{1-yx^{25}}. \]
+因为最多10枚硬币，方案数为
+\[ \sum_{j=0}^{10}[x^{100}y^j]\frac{1}{(1-yx)(1-yx^5)(1-yx^{10})(1-yx^{25})}. \]
+该值等于 $\boxed{12}$。
+
+\subsubsection*{习题 8.4-36}
+\textbf{题目：} 用生成函数求解递推关系
+\[ a_k=3a_{k-1}+4^{k-1},\qquad a_0=1. \]
+
+\textbf{解答：} 设
+\[ G(x)=\sum_{k\ge 0}a_kx^k. \]
+对 $k\ge 1$ 求和：
+\[ G(x)-a_0=\sum_{k\ge 1}(3a_{k-1}+4^{k-1})x^k. \]
+因为 $a_0=1$，
+\[ G(x)-1=3xG(x)+x\sum_{k\ge 1}4^{k-1}x^{k-1}=3xG(x)+\frac{x}{1-4x}. \]
+于是
+\[ G(x)(1-3x)=1+\frac{x}{1-4x}=\frac{1-3x}{1-4x}. \]
+所以
+\[ G(x)=\frac{1}{1-4x}=\sum_{k\ge 0}4^kx^k. \]
+因此
+\[ \boxed{a_k=4^k.} \]
+
+\subsubsection*{习题 8.4-44}
+\textbf{题目：} 用生成函数证明 Pascal 恒等式：
+\[ \binom{n}{r}=\binom{n-1}{r}+\binom{n-1}{r-1},\qquad 1\le r<n. \]
+
+\textbf{解答：} 由二项式定理：
+\[ (1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k. \]
+另一方面，
+\[ (1+x)^n=(1+x)(1+x)^{n-1}=(1+x)^{n-1}+x(1+x)^{n-1}. \]
+把右边展开：
+\begin{align*}
+(1+x)^{n-1}+x(1+x)^{n-1} &= \sum_{k=0}^{n-1}\binom{n-1}{k}x^k+x\sum_{k=0}^{n-1}\binom{n-1}{k}x^k\\
+&= \sum_{k=0}^{n-1}\binom{n-1}{k}x^k+\sum_{k=0}^{n-1}\binom{n-1}{k}x^{k+1}\\
+&= \sum_{k=0}^{n-1}\binom{n-1}{k}x^k+\sum_{k=1}^{n}\binom{n-1}{k-1}x^k.
+\end{align*}
+
+左边 $(1+x)^n$ 中 $x^r$ 的系数是 $\displaystyle\binom{n}{r}$。
+
+右边第一个求和式中 $x^r$ 的系数是 $\displaystyle\binom{n-1}{r}$；第二个求和式中 $x^r$ 的系数是 $\displaystyle\binom{n-1}{r-1}$。
+
+因此比较 $x^r$ 的系数得
+\[ \boxed{\binom{n}{r}=\binom{n-1}{r}+\binom{n-1}{r-1}.} \]
+
+
+
+\newpage
+\section{第8章续：容斥原理 (Section 8.6)}
+
+\subsection*{广义容斥原理的归纳证明}
+
+\textbf{定理：} 对有限集合 $A_1,\ldots,A_n$，
+\[ \left|\bigcup_{i=1}^{n}A_i\right|=\sum_{1\le i\le n}|A_i|-\sum_{1\le i<j\le n}|A_i\cap A_j|+\cdots+(-1)^{n+1}|A_1\cap\cdots\cap A_n|. \]
+
+\textbf{证明（数学归纳法）：}
+
+\textbf{归纳基：}
+\begin{itemize}
+    \item $n=1$ 时结论显然成立。
+    \item $n=2$ 时，结论为普通容斥公式
+    \[ |A_1\cup A_2|=|A_1|+|A_2|-|A_1\cap A_2|. \]
+\end{itemize}
+
+\textbf{归纳步：} 假设结论对 $n$ 个集合成立。考虑 $n+1$ 个集合 $A_1,\ldots,A_n,A_{n+1}$。令
+\[ B=A_1\cup\cdots\cup A_n. \]
+由二集合容斥公式，
+\[ |B\cup A_{n+1}|=|B|+|A_{n+1}|-|B\cap A_{n+1}|. \]
+由归纳假设，$|B|$ 等于前 $n$ 个集合的交错求和。
+
+再看第三项：
+\[ B\cap A_{n+1}=(A_1\cap A_{n+1})\cup\cdots\cup(A_n\cap A_{n+1}). \]
+对 $n$ 个集合 $A_1\cap A_{n+1},\ldots,A_n\cap A_{n+1}$ 使用归纳假设，得到
+\begin{align*}
+|B\cap A_{n+1}| &= \sum_{1\le i\le n}|A_i\cap A_{n+1}|\\
+&\quad-\sum_{1\le i<j\le n}|A_i\cap A_j\cap A_{n+1}|+\cdots\\
+&\quad+(-1)^{n+1}|A_1\cap\cdots\cap A_n\cap A_{n+1}|.
+\end{align*}
+
+把这个式子代回 $|B\cup A_{n+1}|=|B|+|A_{n+1}|-|B\cap A_{n+1}|$ 后：
+\begin{itemize}
+    \item 所有不含 $A_{n+1}$ 的交项来自 $|B|$；
+    \item 所有含 $A_{n+1}$ 的交项来自 $|A_{n+1}|-|B\cap A_{n+1}|$；
+    \item 符号正好交替。
+\end{itemize}
+因此得到 $n+1$ 个集合的广义容斥公式。归纳完成。
+
+\subsection*{习题 8.6-6}
+\textbf{题目：} 称一个正整数为 \textbf{squarefree}（无平方因子），若它不被任何大于1的正整数的平方整除。求小于100的无平方因子正整数的个数。
+
+\textbf{解答：} 小于100的正整数共有99个。只需排除被素数平方整除的数；相关素数平方为
+\[ 2^2=4,\quad 3^2=9,\quad 5^2=25,\quad 7^2=49. \]
+（$11^2=121>99$，更大的素数平方无需考虑。）
+
+令 $A_p$ 表示小于100且被 $p^2$ 整除的正整数集合。由容斥，
+\begin{align*}
+|A_2\cup A_3\cup A_5\cup A_7| &= \left\lfloor\frac{99}{4}\right\rfloor+\left\lfloor\frac{99}{9}\right\rfloor+\left\lfloor\frac{99}{25}\right\rfloor+\left\lfloor\frac{99}{49}\right\rfloor\\
+&\quad-\left\lfloor\frac{99}{4\cdot 9}\right\rfloor-\cdots\\
+&= 24+11+3+2-2=38.
+\end{align*}
+（其他两个平方乘积都超过99，没有贡献。）
+
+所以无平方因子正整数个数为
+\[ \boxed{99-38=61}. \]
+
+\subsection*{习题 8.6-24}
+\textbf{题目：} 证明若 $n$ 为正整数，则
+\[ n!=\binom{n}{0}D_n+\binom{n}{1}D_{n-1}+\cdots+\binom{n}{n-1}D_1+\binom{n}{n}D_0, \]
+其中 $D_k$ 是 $k$ 个元素的\textbf{错排数}（derangement）。
+
+\textbf{解答：}
+
+\textbf{错排数 $D_n$：} 对 $n$ 个元素的排列，所有元素都不在原位置上的排列数。
+
+\textbf{按``恰好有多少个固定点''分类计数全排列：} 若恰好有 $k$ 个固定点：
+\begin{itemize}
+    \item 先选出这 $k$ 个固定点：$\displaystyle\binom{n}{k}$ 种；
+    \item 剩下 $n-k$ 个元素必须错排：$D_{n-k}$ 种。
+\end{itemize}
+因此
+\[ \boxed{n!=\sum_{k=0}^{n}\binom{n}{k}D_{n-k}.} \]
+等价地，换指标也可写成
+\[ n!=\sum_{k=0}^{n}\binom{n}{k}D_k. \]
 
 \end{document}
