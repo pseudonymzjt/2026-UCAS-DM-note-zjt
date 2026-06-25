@@ -16,9 +16,9 @@ filecolor=magenta] % 本地文件链接颜色
 
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
-\title{离散数学 2026 春习题课笔记（第 1-4 周）}
+\title{离散数学 2026 春习题课笔记}
 \author{讲师：刘易铖}
-\date{2026 年 4 月 8 日}
+\date{\today}
 
 \begin{document}
 
@@ -2872,8 +2872,6 @@ p \leftrightarrow q &\equiv (\neg p \lor q) \land (\neg q \lor p), \\
 \end{align*}
 两式的子句完全相同，故逻辑等价。
 
-\subsection{命题等价与可满足性 (Section 1.3续)}
-
 \subsubsection*{附加题（DNF转换）}
 \textbf{题目：} 将下列复合命题转化为析取范式（DNF）：
 \[ (p \leftrightarrow \neg q) \land (q \leftrightarrow \neg r) \land \bigl(r \leftrightarrow (\neg p \land \neg q)\bigr) \]
@@ -3047,6 +3045,45 @@ $Q'$ 的可满足赋值即对应第一列皇后在奇数行的全部 $n$ 皇后�
 
 \subsection{嵌套量词 (Section 1.5)}
 
+\subsubsection*{习题 1.5-12}
+\textbf{题目：} 令 $I(x)$ 表示 ``$x$ has an Internet connection''，$C(x,y)$ 表示 ``$x$ and $y$ have chatted over the Internet''，论域为班上所有学生。用量词表达下列语句。
+\begin{enumerate}[a)]
+    \item Jerry does not have an Internet connection.
+    \item[(c)] Jan and Sharon have never chatted over the Internet.
+    \item[(m)] There is a student in your class who has chatted with everyone in your class over the Internet.
+    \item[(n)] There are at least two students in your class who have not chatted with the same person in your class.
+\end{enumerate}
+
+\textbf{解答：}
+\begin{center}
+\begin{tabular}{c|l|l}
+\hline
+题号 & 符号化表达 & 说明 \\
+\hline
+(a) & $\neg I(\text{Jerry})$ & Jerry无网络连接 \\
+(c) & $\neg C(\text{Jan},\text{Sharon})$ & Jan与Sharon从未网聊 \\
+(m) & $\exists x\,\forall y\, C(x,y)$ & 存在一人与所有人都聊过 \\
+(n) & $\exists x\exists y\,\bigl(x\neq y \land \neg\exists z(C(x,z)\land C(y,z))\bigr)$ & 存在两人没有共同聊天对象 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{1.5-12(n) 的等价形式：}
+\[ \exists x\exists y\,\Bigl(x\neq y \land \forall z\bigl(\neg C(x,z)\lor \neg C(y,z)\bigr)\Bigr). \]
+
+\textbf{常见错误分析：}
+\begin{center}
+\begin{tabular}{l|l|l}
+\hline
+错误类型 & 错误写法 & 问题说明 \\
+\hline
+错法1 & $\exists x\exists y\exists z\,\bigl(x\neq y \land \neg C(x,z)\land \neg C(y,z)\bigr)$ & 只说明存在某个 $z$ 两人都没聊过，非``无共同对象'' \\
+错法2 & $\exists x\exists y\,\neg\exists z\bigl(C(x,z)\land C(y,z)\bigr)$ & 缺少 $x\neq y$，可能取到 $x=y$ \\
+错法3 & $\exists x\exists y\,\bigl(x\neq y \land \forall z(\neg C(x,z)\land \neg C(y,z))\bigr)$ & 条件过强，要求两人\textbf{都没和任何人}聊天 \\
+\hline
+\end{tabular}
+\end{center}
+
 \subsubsection*{习题 1.5-28}
 \textbf{题目：} 若每个变量的论域均为全体实数，判断下列各语句的真值。
 \begin{enumerate}[a)]
@@ -3194,76 +3231,6 @@ $Q'$ 的可满足赋值即对应第一列皇后在奇数行的全部 $n$ 皇后�
 \textbf{推理链概括：}
 \[ q \xrightarrow{\text{肯定前件}} u \land t \xrightarrow{\text{化简}} u,t \xrightarrow{\text{肯定前件}} p \xrightarrow{\text{合取}} p \land t \xrightarrow{\text{肯定前件}} r \lor s \xrightarrow{\text{析取三段论}} r. \]
 
-\subsubsection*{习题 1.6-33}
-\textbf{题目：} 使用归结法（resolution）证明复合命题
-\[ (p \lor q) \land (\neg p \lor q) \land (p \lor \neg q) \land (\neg p \lor \neg q) \]
-不可满足。
-
-\textbf{解答：} 将公式写成子句集：
-\begin{align*}
-C_1 &= p \lor q, \\
-C_2 &= \neg p \lor q, \\
-C_3 &= p \lor \neg q, \\
-C_4 &= \neg p \lor \neg q.
-\end{align*}
-
-\textbf{归结步骤：}
-\begin{enumerate}
-    \item 对 $C_1, C_2$ 就 $p$ 归结：$C_5 = q$。
-    \item 对 $C_3, C_4$ 就 $p$ 归结：$C_6 = \neg q$。
-    \item 对 $C_5, C_6$ 就 $q$ 归结：$C_7 = \square$（空子句）。
-\end{enumerate}
-
-得到空子句，说明原公式存在矛盾。故该复合命题\textbf{不可满足}。
-
-\newpage
-\section*{第1章补充：谓词逻辑习题}
-
-\subsection*{嵌套量词 (Section 1.5 补充)}
-
-\subsubsection*{习题 1.5-12}
-\textbf{题目：} 令 $I(x)$ 表示 ``$x$ has an Internet connection''，$C(x,y)$ 表示 ``$x$ and $y$ have chatted over the Internet''，论域为班上所有学生。用量词表达下列语句。
-\begin{enumerate}[a)]
-    \item Jerry does not have an Internet connection.
-    \item[(c)] Jan and Sharon have never chatted over the Internet.
-    \item[(m)] There is a student in your class who has chatted with everyone in your class over the Internet.
-    \item[(n)] There are at least two students in your class who have not chatted with the same person in your class.
-\end{enumerate}
-
-\textbf{解答：}
-\begin{center}
-\begin{tabular}{c|l|l}
-\hline
-题号 & 符号化表达 & 说明 \\
-\hline
-(a) & $\neg I(\text{Jerry})$ & Jerry无网络连接 \\
-(c) & $\neg C(\text{Jan},\text{Sharon})$ & Jan与Sharon从未网聊 \\
-(m) & $\exists x\,\forall y\, C(x,y)$ & 存在一人与所有人都聊过 \\
-(n) & $\exists x\exists y\,\bigl(x\neq y \land \neg\exists z(C(x,z)\land C(y,z))\bigr)$ & 存在两人没有共同聊天对象 \\
-\hline
-\end{tabular}
-\end{center}
-
-\textbf{1.5-12(n) 的等价形式：}
-\[ \exists x\exists y\,\Bigl(x\neq y \land \forall z\bigl(\neg C(x,z)\lor \neg C(y,z)\bigr)\Bigr). \]
-
-\textbf{常见错误分析：}
-\begin{center}
-\begin{tabular}{l|l|l}
-\hline
-错误类型 & 错误写法 & 问题说明 \\
-\hline
-错法1 & $\exists x\exists y\exists z\,\bigl(x\neq y \land \neg C(x,z)\land \neg C(y,z)\bigr)$ & 只说明存在某个 $z$ 两人都没聊过，非``无共同对象'' \\
-错法2 & $\exists x\exists y\,\neg\exists z\bigl(C(x,z)\land C(y,z)\bigr)$ & 缺少 $x\neq y$，可能取到 $x=y$ \\
-错法3 & $\exists x\exists y\,\bigl(x\neq y \land \forall z(\neg C(x,z)\land \neg C(y,z))\bigr)$ & 条件过强，要求两人\textbf{都没和任何人}聊天 \\
-\hline
-\end{tabular}
-\end{center}
-
-
-
-\subsection*{推理规则与证明 (Section 1.6 补充)}
-
 \subsubsection*{习题 1.6-14}
 \textbf{题目：} 对下列每个论证，说明每一步使用了哪些推理规则。
 \begin{enumerate}[a)]
@@ -3350,12 +3317,33 @@ P(x)\lor Q(x) &\quad\text{（前提1，全称实例化）}\\
 而 $P(x)\lor R(x)\equiv \neg R(x)\to P(x)$。由全称泛化 (UG) 得
 \[ \forall x\bigl(\neg R(x)\to P(x)\bigr). \]
 
+\subsubsection*{习题 1.6-33}
+\textbf{题目：} 使用归结法（resolution）证明复合命题
+\[ (p \lor q) \land (\neg p \lor q) \land (p \lor \neg q) \land (\neg p \lor \neg q) \]
+不可满足。
+
+\textbf{解答：} 将公式写成子句集：
+\begin{align*}
+C_1 &= p \lor q, \\
+C_2 &= \neg p \lor q, \\
+C_3 &= p \lor \neg q, \\
+C_4 &= \neg p \lor \neg q.
+\end{align*}
+
+\textbf{归结步骤：}
+\begin{enumerate}
+    \item 对 $C_1, C_2$ 就 $p$ 归结：$C_5 = q$。
+    \item 对 $C_3, C_4$ 就 $p$ 归结：$C_6 = \neg q$。
+    \item 对 $C_5, C_6$ 就 $q$ 归结：$C_7 = \square$（空子句）。
+\end{enumerate}
+
+得到空子句，说明原公式存在矛盾。故该复合命题\textbf{不可满足}。
 
 
 \newpage
 \section{第4章：数论与同余}
 
-\subsection*{整除与模运算 (Section 4.1)}
+\subsection{整除与模运算 (Section 4.1)}
 
 \subsubsection*{习题 4.1-46}
 \textbf{题目：} 证明若 $n$ 为正奇数，则 $n^2\equiv 1\pmod 8$。
@@ -3386,7 +3374,7 @@ P(x)\lor Q(x) &\quad\text{（前提1，全称实例化）}\\
 
 
 
-\subsection*{整数表示与算法 (Section 4.2)}
+\subsection{整数表示与算法 (Section 4.2)}
 
 \subsubsection*{习题 4.2-18}
 \textbf{题目：} 利用二进制作为中间步骤，将十六进制展开转换为八进制展开。
@@ -3410,7 +3398,7 @@ P(x)\lor Q(x) &\quad\text{（前提1，全称实例化）}\\
 
 
 
-\subsection*{素数与最大公约数 (Section 4.3)}
+\subsection{素数与最大公约数 (Section 4.3)}
 
 \subsubsection*{习题 4.3-10}
 \textbf{题目：} 证明若 $2^m+1$ 为奇素数，则 $m=2^n$ 对某个非负整数 $n$ 成立。
@@ -3474,9 +3462,6 @@ $p=5$ & 2 & 3 &  & 5 &  & 7 &  &  &  & 11 &  & 13 &  &  &  & 17 &  & 19 &  &  & 
     \item 更优化的写法可以从 $p^2$ 开始删。
 \end{itemize}
 
-\newpage
-\subsection*{素数与最大公约数 (Section 4.3 续)}
-
 \subsubsection*{习题 4.3-32}
 \textbf{题目：} 用欧几里得算法求最大公约数。
 \begin{enumerate}
@@ -3539,7 +3524,7 @@ $p=5$ & 2 & 3 &  & 5 &  & 7 &  &  &  & 11 &  & 13 &  &  &  & 17 &  & 19 &  &  & 
 
 
 
-\subsection*{求解同余方程 (Section 4.4)}
+\subsection{求解同余方程 (Section 4.4)}
 
 \subsubsection*{习题 4.4-2 / 4.4-8}
 
@@ -3611,7 +3596,7 @@ $p=5$ & 2 & 3 &  & 5 &  & 7 &  &  &  & 11 &  & 13 &  &  &  & 17 &  & 19 &  &  & 
 
 
 
-\subsection*{同余应用 (Section 4.5)}
+\subsection{同余应用 (Section 4.5)}
 
 \subsubsection*{习题 4.5-34（ISSN 校验码）}
 \textbf{题目：} ISSN（国际标准期刊编号）的校验码是否能检测所有单个数字错误？用证明或反例说明。
@@ -3631,7 +3616,7 @@ ISSN 校验关系为模 $11$ 同余，权重为 $3,4,5,6,7,8,9$（对应 $d_1$ �
 \newpage
 \section{第8章：高级计数技巧}
 
-\subsection*{线性齐次递推 (Section 8.2)}
+\subsection{线性齐次递推 (Section 8.2)}
 
 \subsubsection*{方法总结}
 
@@ -3693,31 +3678,7 @@ $2$ 是三重根，故设
 \[ \beta=\frac{1}{2},\qquad \gamma=\frac{13}{2}. \]
 \[ \boxed{a_n=\left(-5+\frac{n}{2}+\frac{13n^2}{2}\right)2^n.} \]
 
-\subsubsection*{Lemma 1（重根通解的归纳证明）}
-
-\textbf{题目：} 补全 Lemma 1 证明中的归纳步骤。设线性齐次递推
-\[ a_n+b_1a_{n-1}+\cdots+b_{m-1}a_{n-m+1}+b_ma_{n-m}=0 \]
-的特征方程为 $(x-d)^m=0$。证明对每个 $0\le j<m$，$n^jd^n$ 都是该递推式的解。
-
-\textbf{解答思路：}
-
-Lemma 1 要证明：若特征方程为 $(x-d)^m=0$（即 $d$ 是 $m$ 重根），则下列序列都是递推式的解：
-\[ d^n,\quad nd^n,\quad n^2d^n,\quad\ldots,\quad n^{m-1}d^n. \]
-
-记 $b_0=1$。要证 $a_n=n^jd^n$ 是解，代入递推式左边得
-\[ \sum_{i=0}^{m}b_i(n-i)^jd^{n-i}=0. \]
-令
-\[ P_j(x)=\sum_{i=0}^{m}b_i(n-i)^jx^{n-i}, \]
-最终只需证明 $P_j(d)=0$。
-
-\textbf{更强的命题 $H_j$：}
-\[ P_j(x)=\sum_{i=0}^{m}b_i(n-i)^jx^{n-i}=(x-d)^{m-j}q_j(x). \]
-当 $j<m$ 时，右边含有因子 $(x-d)$，故代入 $x=d$ 即得 $P_j(d)=0$。
-
-只要 $H_j$ 成立，就有 $a_n=n^jd^n$ 满足递推式。通过归纳法可证 $H_j$ 对所有 $0\le j<m$ 成立。
-
-\newpage
-\subsection*{Lemma 1 归纳证明（详细步骤）}
+\subsubsection*{Lemma 1 归纳证明}
 
 \textbf{基础步（$j=0$）：}
 \[ P_0(x)=\sum_{i=0}^{m}b_i(n-i)^0x^{n-i}=\sum_{i=0}^{m}b_ix^{n-i}. \]
@@ -3756,11 +3717,6 @@ P_j(x) &= x\frac{d}{dx}P_{j-1}(x) \\
 就得到
 \[ P_j(x)=\sum_{i=0}^{m}b_i(n-i)^jx^{n-i}=(x-d)^{m-j}q_j(x). \]
 归纳命题成立。当 $j<m$ 时 $P_j(d)=0$，所以 $n^jd^n$ 是解。
-
-
-
-\newpage
-\subsection*{线性非齐次递推 (Section 8.2 续)}
 
 \subsubsection*{习题 8.2-30}
 \textbf{题目：}
@@ -3821,7 +3777,7 @@ P_j(x) &= x\frac{d}{dx}P_{j-1}(x) \\
 
 
 \newpage
-\subsection*{分治递推 (Section 8.3)}
+\subsection{分治递推 (Section 8.3)}
 
 \subsubsection*{习题 8.3-22}
 \textbf{题目：} 设 $f(n)=2f(\sqrt{n})+\log n$ 对完全平方数 $n>1$ 成立，且 $f(2)=1$。
@@ -3883,12 +3839,9 @@ $a>b^d$ & $T(n)=O(n^{\log_b a})$ \\
 所以
 \[ \boxed{f(n)=O(n^{\log_2 8})=O(n^3).} \]
 
+\subsection{生成函数 (Section 8.4)}
 
-
-\newpage
-\section{第8章续：生成函数 (Section 8.4)}
-
-\subsection*{生成函数基本概念}
+\subsubsection*{生成函数基本概念}
 
 \textbf{基本想法：} 将数列 $a_0,a_1,a_2,\ldots$ 对应到形式幂级数
 \[ A(x)=\sum_{n\ge 0}a_nx^n. \]
@@ -3904,7 +3857,7 @@ $a>b^d$ & $T(n)=O(n^{\log_b a})$ \\
 \[ \frac{1}{1-x^r}=1+x^r+x^{2r}+x^{3r}+\cdots. \]
 如果面值为 $r$ 的硬币可以无限使用，就用这一项。
 
-\subsection*{习题 8.4-8}
+\subsubsection*{习题 8.4-8}
 \textbf{题目：} 对下列每个生成函数，给出它所确定的数列的闭式公式。
 \begin{enumerate}[a)]
     \item $(x^2+1)^3$
@@ -3931,11 +3884,6 @@ $a>b^d$ & $T(n)=O(n^{\log_b a})$ \\
 \[ (3x-1)^3=-1+9x-27x^2+27x^3. \]
 因此
 \[ a_0=-1,\ a_1=9,\ a_2=-27,\ a_3=27,\quad a_n=0\ (n\ge 4). \]
-
-\newpage
-\subsection*{生成函数求数列闭式（Section 8.4 续）}
-
-\subsubsection*{习题 8.4-8 续}
 
 \textbf{(c)} $\displaystyle\frac{1}{1-2x^2}$
 
@@ -4066,12 +4014,9 @@ $a>b^d$ & $T(n)=O(n^{\log_b a})$ \\
 因此比较 $x^r$ 的系数得
 \[ \boxed{\binom{n}{r}=\binom{n-1}{r}+\binom{n-1}{r-1}.} \]
 
+\subsection{容斥原理应用 (Section 8.6)}
 
-
-\newpage
-\section{第8章续：容斥原理 (Section 8.6)}
-
-\subsection*{广义容斥原理的归纳证明}
+\subsubsection*{广义容斥原理的归纳证明}
 
 \textbf{定理：} 对有限集合 $A_1,\ldots,A_n$，
 \[ \left|\bigcup_{i=1}^{n}A_i\right|=\sum_{1\le i\le n}|A_i|-\sum_{1\le i<j\le n}|A_i\cap A_j|+\cdots+(-1)^{n+1}|A_1\cap\cdots\cap A_n|. \]
@@ -4108,7 +4053,7 @@ $a>b^d$ & $T(n)=O(n^{\log_b a})$ \\
 \end{itemize}
 因此得到 $n+1$ 个集合的广义容斥公式。归纳完成。
 
-\subsection*{习题 8.6-6}
+\subsubsection*{习题 8.6-6}
 \textbf{题目：} 称一个正整数为 \textbf{squarefree}（无平方因子），若它不被任何大于1的正整数的平方整除。求小于100的无平方因子正整数的个数。
 
 \textbf{解答：} 小于100的正整数共有99个。只需排除被素数平方整除的数；相关素数平方为
@@ -4126,7 +4071,7 @@ $a>b^d$ & $T(n)=O(n^{\log_b a})$ \\
 所以无平方因子正整数个数为
 \[ \boxed{99-38=61}. \]
 
-\subsection*{习题 8.6-24}
+\subsubsection*{习题 8.6-24}
 \textbf{题目：} 证明若 $n$ 为正整数，则
 \[ n!=\binom{n}{0}D_n+\binom{n}{1}D_{n-1}+\cdots+\binom{n}{n-1}D_1+\binom{n}{n}D_0, \]
 其中 $D_k$ 是 $k$ 个元素的\textbf{错排数}（derangement）。
