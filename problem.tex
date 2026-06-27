@@ -2907,10 +2907,10 @@ $n$ 皇后问题要求在 $n \times n$ 棋盘上放置 $n$ 个皇后，使得任
     \[ Q_3 = \bigwedge_{j=1}^{n} \bigwedge_{i=1}^{n-1} \bigwedge_{k=i+1}^{n} \bigl(\neg p(i,j) \lor \neg p(k,j)\bigr) \]
     （此断言与 $Q_1$ 共同保证每列恰好有一个皇后。）
     
-    \item \textbf{副对角线方向（左上至右下）上至多一个皇后：}
+    \item \textbf{副对角线方向（右上至左下）上至多一个皇后：}
     \[ Q_4 = \bigwedge_{i=2}^{n} \bigwedge_{j=1}^{n-1} \bigwedge_{k=1}^{\min(i-1,n-j)} \bigl(\neg p(i,j) \lor \neg p(i-k,j+k)\bigr) \]
     
-    \item \textbf{主对角线方向（右上至左下）上至多一个皇后：}
+    \item \textbf{主对角线方向（左上至右下）上至多一个皇后：}
     \[ Q_5 = \bigwedge_{i=1}^{n-1} \bigwedge_{j=1}^{n-1} \bigwedge_{k=1}^{\min(n-i,n-j)} \bigl(\neg p(i,j) \lor \neg p(i+k,j+k)\bigr) \]
 \end{enumerate}
 
