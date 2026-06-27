@@ -23,6 +23,7 @@
 \newtheorem{corollary}{推论}[section]
 \newtheorem{lemma}{引理}[section]
 \newtheorem{problem}{问题}[section]
+\newtheorem{solution}{解}[section]
 \newtheorem{claim}{断言}[section]
 \newtheorem{recall}{回顾}[section]
 \DeclareMathOperator{\lcm}{lcm}
@@ -4567,6 +4568,40 @@ t &::= x \mid c \mid f(t_1,\ldots,t_n),\\
 \]
 
 若 $\mathrm{free}(\varphi)\subseteq\{x_1,\ldots,x_n\}$，可将 $\varphi$ 写为 $\varphi(x_1,\ldots,x_n)$。当 $\mathrm{free}(\varphi)=\emptyset$ 时，称 $\varphi$ 为一个\textbf{句子}（sentence，即闭公式），此时其真值不依赖于赋值。
+
+\begin{problem}
+求以下一阶逻辑公式中的自由变量集合 \(\textbf{free}(\varphi)\)：
+\[
+ \varphi = (\forall x (P(x) \lor Q(x))) \land \exists y R(x, y) 
+\]
+\end{problem}
+
+\begin{solution}
+根据一阶逻辑中自由变量的定义，我们需要找出公式中\textbf{没有被量词（\(\forall\) 或 \(\exists\)）约束}的变量。
+
+1.  \textbf{分析第一部分：} \(\forall x (P(x) \lor Q(x))\)
+    \begin{itemize}
+        \item 量词 \(\forall x\) 约束了子公式 \(P(x) \lor Q(x)\) 中的所有变量 \(x\)。
+        \item 因此，这部分公式中\textbf{没有自由变量}。
+    \end{itemize}
+
+2.  \textbf{分析第二部分：} \(\exists y R(x, y)\)
+    \begin{itemize}
+        \item 量词 \(\exists y\) 约束了子公式 \(R(x, y)\) 中的变量 \(y\)。
+        \item 在 \(R(x, y)\) 中，变量 \(y\) 受 \(\exists y\) 约束，而变量 \textbf{\(x\) 没有被任何量词约束}，所以 \(x\) 是一个自由变量。
+    \end{itemize}
+
+3.  \textbf{合取分析：}
+    \begin{itemize}
+        \item 整个公式是两部分合取：\(\forall x (P(x) \lor Q(x)) \land \exists y R(x, y)\)
+        \item 该公式的自由变量是左右两边自由变量的并集，即 \(\emptyset \cup \{x\} = \{x\}\)。
+    \end{itemize}
+
+综上所述，该公式的自由变量只有 \(x\)。
+\[
+ \boxed{\{x\}} 
+\]
+\end{solution}
 
 \subsection{语义}
 
