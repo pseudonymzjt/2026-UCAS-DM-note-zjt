@@ -4461,7 +4461,7 @@ $\dfrac{\varphi_1\lor\varphi_2,\ \neg\varphi_1\lor\varphi_3}{\varphi_2\lor\varph
 \begin{aligned}
 &\text{前置条件：}\top\\
 &\text{后置条件：}y\geq 0\\
-&\text{规范：}((x\geq 0\land y=x)\lor(x<<0\land y=-x))\to y\geq 0
+&\text{规范：}((x\geq 0\land y=x)\lor(x<0\land y=-x))\to y\geq 0
 \end{aligned}
 \]
 
@@ -4502,7 +4502,7 @@ $\exists x\,P(x)$ & 存在某个 $x$ 使 $P(x)$ 为真 & 对每个 $x$，$P(x)$ 
 
 \textbf{受限域量词}：
 \[
-\forall x<<0\,(x^2>0)\equiv\forall x\,(x<<0\to x^2>0),\qquad
+\forall x<0\,(x^2>0)\equiv\forall x\,(x<0\to x^2>0),\qquad
 \exists x>0\,(x^2=2)\equiv\exists x\,(x>0\land x^2=2).
 \]
 
@@ -4537,7 +4537,7 @@ t &::= x \mid c \mid f(t_1,\ldots,t_n),\\
 \begin{aligned}
 &\forall x\forall y\,(x+y=y+x) && \text{（交换律）}\\
 &\forall x\forall y\forall z\,((x+y)+z=x+(y+z)) && \text{（结合律）}\\
-&\forall x\forall y\,(x+y=y) && \text{（单位元，此处表述有省略，应为 }x+0=x\text{）}\\
+&\exists x\forall y\,(x+y=y) && \text{（单位元）}\\
 &\forall x\exists y\,(x+y=0) && \text{（逆元存在性）}
 \end{aligned}
 \]
