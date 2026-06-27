@@ -2974,6 +2974,15 @@ $Q'$ 的可满足赋值即对应第一列皇后在奇数行的全部 $n$ 皇后�
 ``有用户登录''即 $\exists x\, L(x)$，故规范表示为：
 \[ (\exists x\, L(x)) \to \neg B. \]
 
+\[
+\begin{aligned}
+(\exists x L(x)) \to \neg B &\equiv \neg(\exists x L(x)) \vee \neg B \\
+&\equiv (\forall x \neg L(x)) \vee \neg B \\
+&\equiv \forall x (\neg L(x) \vee \neg B) \\
+&\equiv \forall x (L(x) \to \neg B)
+\end{aligned}
+\]
+
 \textbf{d)} 将系统状态视为 0-ary 命题变量：
 \begin{itemize}
     \item $M$：可用内存至少为 8 MB；
