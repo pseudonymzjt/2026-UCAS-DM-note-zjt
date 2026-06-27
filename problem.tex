@@ -2878,9 +2878,9 @@ p \leftrightarrow q &\equiv (\neg p \lor q) \land (\neg q \lor p), \\
 
 \textbf{解答：}
 
-\textbf{结构推理：} 由前两式可知 $p \equiv \neg r$ 且 $q \equiv \neg r$，故 $p \equiv q \equiv \neg r$。代入第三式：
-\[ r \leftrightarrow (\neg r \land \neg q) \equiv r \leftrightarrow (\neg r \land r) \equiv r \leftrightarrow \mathbf{F} \equiv \neg r. \]
-因此 $r$ 必为假，$p, q$ 必为真。唯一成真赋值为 $(p,q,r) = (F,T,F)$。
+\textbf{结构推理：} 由前两式可知 $p \leftrightarrow \neg q$ 和 $q \leftrightarrow \neg r$，即 $p \equiv \neg q$ 且 $q \equiv \neg r$。由此得 $p \equiv r \equiv \neg q$。代入第三式：
+\[ r \leftrightarrow (\neg p \land \neg q) \equiv r \leftrightarrow (\neg r \land r) \equiv r \leftrightarrow \mathbf{F} \equiv \neg r. \]
+因此 $r$ 必为假，进而 $p$ 假、$q$ 真。唯一成真赋值为 $(p,q,r) = (F,T,F)$。
 
 \textbf{真值表验证：} 仅 $(F,T,F)$ 使该复合命题为真。
 
