@@ -5083,15 +5083,15 @@ $4\times 4$ 数独可用\textbf{三元关系} $p(i,j,k)$（表示``数字 $k$ �
 \end{example}
 
 \begin{example}
-求 $\mathrm{PNF}\bigl(\exists x\,(x>0)\land\exists x\,(x<<0)\bigr)$。
+求 $\mathrm{PNF}\bigl(\exists x\,(x>0)\land\exists x\,(x<0)\bigr)$。
 
 \textbf{解}：步骤 I（良命名）将第二个约束变量换名：
 \[
-\exists x\,(x>0)\land\exists y\,(y<<0).
+\exists x\,(x>0)\land\exists y\,(y<0).
 \]
 步骤 II 递归应用合取规则，将量词尽数前移：
 \[
-\mathrm{PNF}=\exists x\exists y\,\bigl((x>0)\land(y<<0)\bigr).
+\mathrm{PNF}=\exists x\exists y\,\bigl((x>0)\land(y<0)\bigr).
 \]
 \end{example}
 
